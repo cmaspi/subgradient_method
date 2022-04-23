@@ -9,6 +9,11 @@
 
 \usepackage[english]{babel} % Language hyphenation and typographical rules
 
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{amsmath, amsthm, amssymb, bm}
+\usepackage{tikz, pgfplots}
+
 \usepackage[hmarginratio=1:1,top=32mm,columnsep=20pt]{geometry} % Document margins
 \usepackage[hang, small,labelfont=bf,up,textfont=it,up]{caption} % Custom captions under/above floats in tables or figures
 \usepackage{booktabs} % Horizontal rules in tables
@@ -39,6 +44,14 @@
 
 \usepackage{hyperref} % For hyperlinks in the PDF
 
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\renewcommand{\vec}[1]{\underline{#1}}
+\newcommand\twospace{\,\,}
+\newcommand\fourspace{\,\,\,\,}
+\newcommand\norm[1]{\ensuremath{\lVert#1\rVert_2}}
+\newcommand\abs[1]{\ensuremath{\Vert#1\Vert}}
 %----------------------------------------------------------------------------------------
 %	TITLE SECTION
 %----------------------------------------------------------------------------------------
@@ -72,11 +85,58 @@ Non-differentiable functions are an important class of functions which often app
 % Print the title
 \maketitle
 
-\section{Motivation}
-In practice, many functions are non-differentiable at certain places in the domain. Take the example of a basic non-differentiable function $f(x) = \left| x \right|$ which is non-differentiable at $x=0$. In the next section, we will introduce an algorithm to optimize on non-differentiable functions.
+\section{Introduction}
+Subgradient method is a simple algorithm used to minimize non-differentiable convex functions. This method is similar to vanilla gradient method which is used to optimize differentiable functions. 
+% can add few lines on comparison
 
+\subsection{Algorithm}
+Lets say we have a nondifferentiable function $f\, : \, \mathbb{R}^n\to \mathbb{R}$. The update rule of subgradient method says
+\begin{align}
+    \vec{x}^{(k+1)} = \vec{x}^{(k)} - \alpha_k\vec{g}^{(k)} \label{eq:subgrad_iter}
+\end{align}
+where $\vec{x}^{(k)}$ is the $k^{th}$ iterate, $\alpha_k$ is the step step size at $k^{th}$ iteration and $\vec{g}^{(k)}$ is any subgradient of $f$ at $\vec{x}^{(k)}$. The subgradient $\vec{g}^{(k)}$ is any vector which satisfies
+\begin{align}
+    f(\vec{y}) \geq f(\vec{x}) + \vec{g}^T(\vec{y}-\vec{x})\label{eq:subgrad_condition}
+\end{align}
+At a given point there can be more than one subgradients, we call the set of subgradients as subdifferential.
+\begin{theorem}
+    If the function f is differentiable at $\vec{x}^{(k)}$ then $\vec{g}^{(k)}$ is equal to the gradient of f at $\vec{x}^{(k)}$
+\end{theorem}
+\begin{proof}
+    Substitute $\vec{y} = \vec{x}+\lambda\vec{z},\twospace \lambda > 0$ in \eqref{eq:subgrad_condition}
+    \begin{align}
+        \frac{f(\vec{x}+\lambda\vec{z}) - f(\vec{x})}{\lambda} \geq \vec{g}^T\vec{z}
+    \end{align}
+    We can use the limit $\lambda \to 0$
+    \begin{align}
+        \vec{\nabla}f(\vec{x})^T\vec{z} &\geq \vec{g}^T\vec{z}\\
+        \vec{z}^T\left(\vec{\nabla}f(\vec{x})-g\right) &\geq 0 \fourspace \forall \vec{z}\\
+        \therefore \vec{g} & = \vec{\nabla}f(\vec{x})
+    \end{align}
+\end{proof}
 
+\section{SVM using subgradient method}
+A support vector machine is used for two class classification. The objective is to maximize the slab thickness while still satisfying  few constraints. Hard Margin SVM problem can be formuated as follows
+\begin{align}
+    \begin{split}
+        \min_{\vec{w},b}\, &\twospace\vec{w}^T\vec{w}
+    \end{split}\\ 
+    \text{s.t:}
+    \twospace & y_i(\vec{w}^T\vec{x_i}+b)\geq 1\\
+\end{align}
+We can transform this problem into
+\begin{align}
+    \min_{\vec{w},b}\, &\twospace\vec{w}^T\vec{w} + \lambda \sum_i \max(0, 1-y_i)
+\end{align}
 
+\section{Convergence proof}
+Lets assume $x^*$ is the minimizer of our objective function $f$. Assume that the norm of subgradients is bounded.
+
+Using Lipschitz condition
+\begin{align}
+    \left| f(u)-f(v)\right| \leq G\norm{u-v}
+\end{align}
+for all $u,v$. Some versions of subgradient method work even when the gradient is not bounded. 
 % expected structure
 %-----------
 
