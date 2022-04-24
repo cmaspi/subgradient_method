@@ -93,13 +93,8 @@ class svm:
                 ax.fill_between(x_coords, find_y(x_coords, self.w, self.b) - dist, find_y(x_coords, self.w, self.b)+dist, label = "slab", edgecolor = None, alpha=0.4, color='white')
 
                 ax.legend(loc='upper right')
-                plt.savefig(f'fig/{epoch}.png')
+                plt.savefig(f'../fig/{epoch}.png')
                 plt.close()
-                # print(self.w)
-                # print(self.best_w)
-                # print(self.loss(train, labels))
-                # print(self.best_loss)
-                # plt.show()
                 clear_output()
         self.w = self.best_w.copy()
         self.b = self.best_b
