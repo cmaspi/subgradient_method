@@ -13,6 +13,7 @@
 \usepackage{booktabs}
 \usepackage{amsmath, amsthm, amssymb, bm}
 \usepackage{tikz, pgfplots}
+\usepackage{float}
 
 \usepackage[hmarginratio=1:1,top=32mm,columnsep=20pt]{geometry} % Document margins
 \usepackage[hang, small,labelfont=bf,up,textfont=it,up]{caption} % Custom captions under/above floats in tables or figures
@@ -62,7 +63,6 @@
 \posttitle{\end{center}} % Article title closing formatting
 \title{Subgradient Method} % Article title
 \author{%
-\textsc{Chirag Mehta}\thanks{This is a preliminary report, the main report will be updated at \href{https://github.com/cmaspi/subgradient_method/blob/master/latex/main.pdf}{github}} \\[1ex] % Your name
 \normalsize Indian Institute of Technology, Hyderabad \\ % Your institution
 \normalsize \href{mailto:ai20btech11006@iith.ac.in}{ai20btech11006@iith.ac.in} % Your email address
 %\and % Uncomment if 2 authors are required, duplicate these 4 lines if more
@@ -74,7 +74,7 @@
 \renewcommand{\maketitlehookd}{%
 \begin{abstract}
 \noindent
-Non-differentiable functions are an important class of functions which often appear in optimization problems, a gradient descent method would fail to optimize such an objective because the gradient might not exist. Methods such as interior point method work great, but it has its own limitations of being computationally inefficient. We will explore the subgradient method which is an iterative first-order method similar to gradient descent. We will also be exploring the heavy-ball method to make the subgradient method faster. 
+Non-differentiable functions are an important class of functions which often appear in optimization problems, a gradient descent method would fail to optimize such an objective because the gradient might not exist at all points that the method encounters. Methods such as interior point method work great, but it has its own limitations of being computationally inefficient. We will explore the subgradient method which is an iterative first-order method similar to gradient descent. 
 \end{abstract}
 }
 
@@ -98,7 +98,7 @@ where $\vec{x}^{(k)}$ is the $k^{th}$ iterate, $\alpha_k$ is the step step size 
 \begin{align}
     f(\vec{y}) \geq f(\vec{x}) + \vec{g}^T(\vec{y}-\vec{x})\label{eq:subgrad_condition}
 \end{align}
-At a given point there can be more than one subgradients, we call the set of subgradients as subdifferential.
+At a given pozint there can be more than one subgradients, we call the set of subgradients as subdifferential.
 \begin{theorem}
     If the function f is differentiable at $\vec{x}^{(k)}$ then $\vec{g}^{(k)}$ is equal to the gradient of f at $\vec{x}^{(k)}$
 \end{theorem}
@@ -110,24 +110,18 @@ At a given point there can be more than one subgradients, we call the set of sub
     We can use the limit $\lambda \to 0$
     \begin{align}
         \vec{\nabla}f(\vec{x})^T\vec{z} &\geq \vec{g}^T\vec{z}\\
-        \vec{z}^T\left(\vec{\nabla}f(\vec{x})-g\right) &\geq 0 \fourspace \forall \vec{z}\\
+        \vec{z}^T\left(\vec{\nabla}f(\vec{x})-\vec{g}\right) &\geq 0 \fourspace \forall \vec{z}\\
         \therefore \vec{g} & = \vec{\nabla}f(\vec{x})
     \end{align}
 \end{proof}
 
-\section{SVM using subgradient method}
-A support vector machine is used for two class classification. The objective is to maximize the slab thickness while still satisfying  few constraints. Hard Margin SVM problem can be formuated as follows
+\section{Example}
+Consider the following problem
+
 \begin{align}
-    \begin{split}
-        \min_{\vec{w},b}\, &\twospace\vec{w}^T\vec{w}
-    \end{split}\\ 
-    \text{s.t:}
-    \twospace & y_i(\vec{w}^T\vec{x_i}+b)\geq 1\\
+    min\fourspace max\{f_1,f_2,\dots f_n\}
 \end{align}
-We can transform this problem into
-\begin{align}
-    \min_{\vec{w},b}\, &\twospace\vec{w}^T\vec{w} + \lambda \sum_i \max(0, 1-y_i)
-\end{align}
+This problem is non differentiable but it can be solved using subgradient method. Lets consider a numerical example.
 
 \section{Convergence proof}
 Lets assume $x^*$ is the minimizer of our objective function $f$. Assume that the norm of subgradients is bounded.
@@ -137,6 +131,71 @@ Using Lipschitz condition
     \left| f(u)-f(v)\right| \leq G\norm{u-v}
 \end{align}
 for all $u,v$. Some versions of subgradient method work even when the gradient is not bounded. 
+
+\section{SVM using subgradient method}
+A support vector machine is used for two class classification. The objective is to maximize the slab thickness while still satisfying  few constraints. A hard-margin SVM can be formuated as
+\begin{align}
+    \begin{split}
+        \min_{\vec{w},b}\, &\twospace\vec{w}^T\vec{w}
+    \end{split}\\ 
+    \text{s.t:}
+    \twospace & y_i(\vec{w}^T\vec{x_i}+b)\geq 1\\
+\end{align}
+We can transform this problem into
+\begin{align}
+    \min_{\vec{w},b}\, &\twospace\vec{w}^T\vec{w} + \lambda \sum_i \max(0, 1-y_i\left(\vec{w}^T\vec{x}+b\right)
+\end{align}
+Where $\lambda$ is the trade off factor, the higher is the value of this parameter, the higher is the penalty of voilating the given constraints. This problem is essentially a soft-margin SVM. We can now solve this problem by subgradient method.
+
+The first step is to calculate the subgradients, 
+\begin{align}
+    \vec{g}_{\vec{w}} = 2*\vec{w}+\lambda\displaystyle\sum_i y_i*\vec{x_i} \fourspace for\,  y_i\left(\vec{w}^T\vec{x}+b\right) < 1
+\end{align}
+and
+\begin{align}
+    g_{b} = \lambda\displaystyle\sum_i y_i \fourspace for\,  y_i\left(\vec{w}^T\vec{x}+b\right) < 1
+\end{align}
+In practice, we tend to use mini-batch subgradient method because of its several advantages such as computational efficiency, stable convergence and faster learning.
+
+\section{Results}
+\subsection{Maximum of convex functions}
+I considered a problem of the type maximum of linear functions and compared different step size rules. The results obtained are as follows
+\begin{enumerate}
+    \item Constant Step Size
+    \begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.5]{../../step/constantstepsize.png}
+        \caption{Constant Step Size}
+        \label{constantstepsize}
+    \end{figure}
+    \item Constant Step Length
+    \begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.5]{../../step/constantsteplength.png}
+        \caption{Constant Step Length}
+        \label{constantsteplength}
+    \end{figure}
+    \item Square Summable But Not Summable
+    \begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.5]{../../step/squaresummablebutnotsummable.png}
+        \caption{Square Summable But Not Summable}
+        \label{squaresummablebutnotsummable}
+    \end{figure}
+    \item Non Summable Diminishing
+    \begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.5]{../../step/nonsummablediminishing.png}
+        \caption{Non summable diminishing}
+        \label{nonsummablediminishing}
+    \end{figure}
+\end{enumerate}
+The link to original code can be found \href{}{here} and the mp4 animation files can be found \href{}{here}.
+    
+
+    
+
+
 % expected structure
 %-----------
 
@@ -168,14 +227,10 @@ for all $u,v$. Some versions of subgradient method work even when the gradient i
 % }
 
 \section{Preliminary References}
-\begin{itemize}
-    \item \href{https://www.youtube.com/watch?v=jYtCiV1aP44}{A youtube video on subgradient method}
-    \item \href{https://web.stanford.edu/class/ee392o/subgrad_method.pdf}{Stanford notes}
-    \item \href{https://www.stat.cmu.edu/~ryantibs/convexopt-S15/scribes/06-subgradients-scribed.pdf}{Mathematics behind subgradients}
-    \item \href{https://mcneela.github.io/machine_learning/2020/04/24/Subgradient-Descent.html}{Subgradient method in SVM}
-    \item \href{https://davidrosenberg.github.io/mlcourse/Archive/2018/Lectures/03c.subgradient-descent.pdf}{Subgradient method in SVM}
-    \item \href{https://web.stanford.edu/class/ee364b/lectures/subgrad_method_notes.pdf}{Heavy-ball method}
-\end{itemize}
+\begin{enumerate}
+    \item Boyd, Stephen and Xiao, Lin and Mutapcic, Almir. Subgradient method \href{https://info.usherbrooke.ca/jpdussault/ROP771H17/subgrad_method_notes.pdf}{$^1$}
+    \item Boyd, Stephen and Mutapcic, Almir. stochastic Subgradient method \href{https://web.stanford.edu/class/ee364b/lectures/stoch_subgrad_notes.pdf}{$^2$}
+\end{enumerate}
 
 
 \end{document}
