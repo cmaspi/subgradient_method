@@ -190,7 +190,13 @@ I considered a problem of the type maximum of linear functions and compared diff
         \label{nonsummablediminishing}
     \end{figure}
 \end{enumerate}
-The link to original code can be found \href{}{here} and the mp4 animation files can be found \href{}{here}.
+We can see the difference in convergence across different step size rules.
+
+The link to original code can be found \href{https://github.com/cmaspi/subgradient_method/blob/main/code/step_illustration.ipynb}{here} and the mp4 animation files can be found \href{https://github.com/cmaspi/subgradient_method/tree/main/results}{here}.
+
+\subsection{SVM}
+\subsubsection{Spam Classification}
+Spam classification problem can be solved by soft margin SVM using linear kernel. The text in email can be tokenized and encoded in higher dimension. For our purposes, \emph{sklearn.feature\_extraction.text.CountVectorizer}~\cite{scikit-learn} can be used  
     
 
     
@@ -221,15 +227,19 @@ The link to original code can be found \href{}{here} and the mp4 animation files
 %-----------------------------------------------------------------
 %	REFERENCE LIST
 %----------------------------------------------------------------------------------------
-% {\small
-% \bibliographystyle{ieee_fullname}
-% \bibliography{egbib}
-% }
+{\small
+\bibliographystyle{ieee_fullname}
+\bibliography{egbib}
+}
 
-\section{Preliminary References}
+\section{References}
 \begin{enumerate}
     \item Boyd, Stephen and Xiao, Lin and Mutapcic, Almir. Subgradient method \href{https://info.usherbrooke.ca/jpdussault/ROP771H17/subgrad_method_notes.pdf}{$^1$}
     \item Boyd, Stephen and Mutapcic, Almir. stochastic Subgradient method \href{https://web.stanford.edu/class/ee364b/lectures/stoch_subgrad_notes.pdf}{$^2$}
+    \item edregosa, F. and Varoquaux, G. and Gramfort, A. and Michel, V.
+    and Thirion, B. and Grisel, O. and Blondel, M. and Prettenhofer, P.
+    and Weiss, R. and Dubourg, V. and Vanderplas, J. and Passos, A. and
+    Cournapeau, D. and Brucher, M. and Perrot, M. and Duchesnay, E. Scikit-learn: Machine Learning in \{P\}ython\} $^3$
 \end{enumerate}
 
 
