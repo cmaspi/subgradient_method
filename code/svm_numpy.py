@@ -15,6 +15,8 @@ class svm:
         self.best_w = None
         self.best_b = None
         self.best_loss = 1e9
+        self.prev_grad_w = None
+        self.prev_grab_b = 0
         
 
     @staticmethod
@@ -47,20 +49,23 @@ class svm:
 
     
     @classmethod
-    def fit_util(self, train: np.ndarray, labels: np.ndarray):
+    def fit_util(self, train: np.ndarray, labels: np.ndarray, momentum : int):
         """
         Utility function for fit
         """
         indices = (labels * (train @ self.w + self.b )) < 1.
         grad_b = -self.trade_off * np.sum(labels[indices]) / (train.shape[0] if train.shape[0] else 1)
         grad_w = 2 * self.w  - self.trade_off * (labels[indices] @ train[indices]) / (train.shape[0] if train.shape[0] else 1)
-        self.b -=  self.learning_rate * grad_b
-        self.w -= self.learning_rate * grad_w
+        self.b -=  self.learning_rate * grad_b + momentum * self.prev_grab_b
+        self.w -= self.learning_rate * grad_w + momentum * self.prev_grad_w
+        self.prev_grab_b = self.learning_rate * grad_b + momentum * self.prev_grab_b
+        self.prev_grad_w = self.learning_rate * grad_w + momentum * self.prev_grad_w
+        
         
 
 
     @classmethod
-    def fit(self, train : np.ndarray, labels : np.ndarray, learning_rate : int = 0.1 ,epochs : int = 500, batch_size = 4, fig: bool = False):
+    def fit(self, train : np.ndarray, labels : np.ndarray, learning_rate : int = 0.1 ,epochs : int = 500, batch_size = 4, fig: bool = False, momentum : int = 0):
         """
         Trains the weights
         """
@@ -68,11 +73,12 @@ class svm:
         s = train.shape[1]
         self.w = np.random.normal(np.zeros(s, dtype = float))
         self.b = 0
+        self.prev_grad_w = np.zeros(self.w.shape)
         
         for epoch in range(epochs):
             train, labels = self.shuffle(train, labels)
             for x,y in self.iterate_minibatches(train, labels, batch_size):
-                self.fit_util(x, y)
+                self.fit_util(x, y, momentum)
                 
             if self.best_loss > self.loss(train, labels):
                 self.best_b = self.b

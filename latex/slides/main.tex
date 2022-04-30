@@ -228,7 +228,13 @@ and
     Spam classification problem can be solved by soft margin SVM using linear kernel. The text in email can be tokenized and encoded in higher dimension. For our purposes, \emph{sklearn.feature\_extraction.text.CountVectorizer}~\cite{scikit-learn} can be used. The SVM written from scratch using numpy is able to attain an accuracy of $98.56\%$. The code can be found \href{https://github.com/cmaspi/subgradient\_method/blob/main/code/spam\_classification.ipynb}{here}
 \end{frame}    
 
-
+\begin{frame}{Heavy Ball Method}
+    Heavy-ball method which is same as momentum method is used for a faster convergence and reduced oscillations. The update rule can be represented as
+    \begin{align}
+        \vec{x}^{(k+1)} = \vec{x}^{(k)} - \alpha_k\vec{g}^{(k)} + \beta\left(\vec{x}^{(k)}-\vec{x}^{(k-1)}\right)
+    \end{align}
+    I've implemented momentum method \href{https://github.com/cmaspi/subgradient_method/blob/main/code/svm_numpy.py}{here}
+\end{frame}
 
 {\small
 \bibliographystyle{ieee_fullname}
