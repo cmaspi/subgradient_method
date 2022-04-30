@@ -1,8 +1,8 @@
 \beamer@slide {eq:subgrad_iter}{3}
 \beamer@slide {eq:subgrad_condition}{3}
-\beamer@slide {constantstepsize}{13}
-\beamer@slide {constantsteplength}{14}
-\beamer@slide {squaresummablebutnotsummable}{15}
-\beamer@slide {nonsummablediminishing}{16}
-\beamer@slide {hardmargin}{20}
-\beamer@slide {softmargin}{21}
+\beamer@slide {constantstepsize}{16}
+\beamer@slide {constantsteplength}{17}
+\beamer@slide {squaresummablebutnotsummable}{18}
+\beamer@slide {nonsummablediminishing}{19}
+\beamer@slide {hardmargin}{23}
+\beamer@slide {softmargin}{24}

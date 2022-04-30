@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2022.4.13)  30 APR 2022 13:18
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2022.4.13)  30 APR 2022 14:07
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1171,75 +1171,82 @@ LaTeX Warning: The counter will not be printed.
 
 ] [12
 
+] [13
+
+] [14
+
+] [15
+
 ]
-<../../step/constantstepsize.png, id=389, 373.49136pt x 253.23409pt>
+<../../step/constantstepsize.png, id=470, 373.49136pt x 253.23409pt>
 File: ../../step/constantstepsize.png Graphic file (type png)
 <use ../../step/constantstepsize.png>
-Package pdftex.def Info: ../../step/constantstepsize.png  used on input line 13
-9.
+Package pdftex.def Info: ../../step/constantstepsize.png  used on input line 16
+8.
 (pdftex.def)             Requested size: 186.74522pt x 126.61673pt.
- [13
+ [16
 
  <../../step/constantstepsize.png>]
-<../../step/constantsteplength.png, id=421, 373.49136pt x 253.23409pt>
+<../../step/constantsteplength.png, id=501, 373.49136pt x 253.23409pt>
 File: ../../step/constantsteplength.png Graphic file (type png)
 <use ../../step/constantsteplength.png>
 Package pdftex.def Info: ../../step/constantsteplength.png  used on input line 
-150.
+179.
 (pdftex.def)             Requested size: 186.74522pt x 126.61673pt.
- [14
+
+[17
 
  <../../step/constantsteplength.png>]
-<../../step/squaresummablebutnotsummable.png, id=450, 373.49136pt x 253.23409pt
+<../../step/squaresummablebutnotsummable.png, id=530, 373.49136pt x 253.23409pt
 >
 File: ../../step/squaresummablebutnotsummable.png Graphic file (type png)
 <use ../../step/squaresummablebutnotsummable.png>
 Package pdftex.def Info: ../../step/squaresummablebutnotsummable.png  used on i
-nput line 161.
+nput line 190.
 (pdftex.def)             Requested size: 186.74522pt x 126.61673pt.
- [15
+ [18
 
  <../../step/squaresummablebutnotsummable.png>]
-<../../step/nonsummablediminishing.png, id=480, 373.49136pt x 253.23409pt>
+<../../step/nonsummablediminishing.png, id=559, 373.49136pt x 253.23409pt>
 File: ../../step/nonsummablediminishing.png Graphic file (type png)
 <use ../../step/nonsummablediminishing.png>
 Package pdftex.def Info: ../../step/nonsummablediminishing.png  used on input l
-ine 171.
+ine 200.
 (pdftex.def)             Requested size: 186.74522pt x 126.61673pt.
+ [19
 
-[16
+ <../../step/nonsummablediminishing.png>] [20
 
- <../../step/nonsummablediminishing.png>] [17
+] [21
 
-] [18
-
-] [19
+] [22
 
 ]
-<../../results/svm(train_data).png, id=594, 399.29175pt x 253.12567pt>
+<../../results/svm(train_data).png, id=672, 399.29175pt x 253.12567pt>
 File: ../../results/svm(train_data).png Graphic file (type png)
 <use ../../results/svm(train_data).png>
 Package pdftex.def Info: ../../results/svm(train_data).png  used on input line 
-215.
+244.
 (pdftex.def)             Requested size: 199.64539pt x 126.56252pt.
- [20
+
+[23
 
  <../../results/svm(train_data).png>]
-<../../results/softmargin.png, id=623, 398.9304pt x 253.6677pt>
+<../../results/softmargin.png, id=702, 398.9304pt x 253.6677pt>
 File: ../../results/softmargin.png Graphic file (type png)
 <use ../../results/softmargin.png>
-Package pdftex.def Info: ../../results/softmargin.png  used on input line 225.
+Package pdftex.def Info: ../../results/softmargin.png  used on input line 254.
 (pdftex.def)             Requested size: 199.4647pt x 126.83353pt.
- [21
+ [24
 
- <../../results/softmargin.png>] [22
+ <../../results/softmargin.png>]
+[25
 
-] [23
+] [26
 
-] (./main.bbl [24
+] (./main.bbl [27
 
- </usr/share/texlive/texmf-dist/tex/latex/beamer/beamericonarticle.pdf>])
-[25]
+ </usr/share/texlive/texmf-dist/tex/latex/beamer/beamericonarticle.pdf>]) [28]
 \tf@nav=\write6
 \openout6 = `main.nav'.
 
@@ -1254,10 +1261,10 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 38084 strings out of 480171
- 920526 string characters out of 5894489
+ 38096 strings out of 480171
+ 920631 string characters out of 5894489
  1280704 words of memory out of 5000000
- 55261 multiletter control sequences out of 15000+600000
+ 55267 multiletter control sequences out of 15000+600000
  479602 words of font info for 64 fonts, out of 8000000 for 9000
  59 hyphenation exceptions out of 8191
  99i,17n,104p,700b,810s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1274,10 +1281,10 @@ msfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
 s/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbo
 ls/msam10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbol
 s/msbm10.pfb>
-Output written on main.pdf (25 pages, 641074 bytes).
+Output written on main.pdf (28 pages, 648790 bytes).
 PDF statistics:
- 838 PDF objects out of 1000 (max. 8388607)
- 736 compressed objects within 8 object streams
- 63 named destinations out of 1000 (max. 500000)
+ 919 PDF objects out of 1000 (max. 8388607)
+ 813 compressed objects within 9 object streams
+ 69 named destinations out of 1000 (max. 500000)
  193 words of extra memory for PDF output out of 10000 (max. 10000000)
 

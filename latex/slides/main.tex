@@ -100,6 +100,35 @@
         \item $\norm{\vec{x}^{(1)}-\vec{x}^*} \leq R$ where $\vec{x}^*$ is the optimal solution.
     \end{enumerate}
 \end{frame}
+\begin{frame}{Convergence Conti.}
+    \begin{align}
+        \norm{\vec{x}^{(k+1)}-\vec{x}^*}^2 &= \norm{\vec{x}^{(k)}-\alpha_k\vec{g}^{(k)}-\vec{x}^*}^2\\
+        &= \norm{\vec{x}^{(k)}-\vec{x}^*}^2 - 2\alpha_k{\vec{g}^{(k)}}^T\left(\vec{x}^{(k)}-\vec{x}^*\right)+\alpha_k^2\norm{\vec{g}^{(k)}}^2\\
+        &\leq \norm{\vec{x}^{(k)}-\vec{x}^*}^2 - 2\alpha_k\left(f(\vec{x}^{(k)})-f^*\right)+\alpha_k^2\norm{\vec{g}^{(k)}}^2
+    \end{align}
+    Where $f^* = f(\vec{x}^*)$
+\end{frame}
+\begin{frame}{Convergence Conti.}
+    \begin{align}
+        \norm{\vec{x}^{(k+1)}-\vec{x}^*}^2 \leq \norm{\vec{x}^{(1)}-\vec{x}^*}^2 - 2\sum_{i=1}^{k}\alpha_i\left(f(\vec{x^(i)})-f^*\right)+\alpha_i^2\norm{\vec{g}^{(i)}}^2
+    \end{align}
+    Now, using $\norm{\vec{x}^{(1)}-\vec{x}^*} \leq R$
+    \begin{align}
+        2\sum_{i=1}^{k}\alpha_i\left(f(\vec{x^(i)})-f^*\right) \leq R^2 + \alpha_i^2\norm{\vec{g}^{(i)}}^2
+    \end{align}
+\end{frame}
+
+\begin{frame}{Convergence Conti.}
+    \begin{align}
+        \sum_{i=1}^{k}\alpha_i\left(f(\vec{x}^{(i)})-f^*\right)&\geq \left(\sum_{i=1}^{k}\alpha_i\right) \min_{i=1,\dots,k}\left(f(\vec{x}^{(i)}-f^*)\right)\\ 
+        &=\left(\sum_{i=1}^{k}\alpha_i\right)(f_{best}^{(k)}-f^*)\nonumber
+    \end{align}
+    We get,
+    \begin{align}
+        f_{best}^{(k)}-f^* &= \min_{i=1,\dots,k}\left(f(\vec{x}^{(i)}-f^*)\right)\\
+        &\leq \frac{R^2+\sum_{i=1}^{k}\alpha_i^2\norm{\vec{g}^{(i)}}^2}{2\sum_{i=1}^{k}\alpha_i}\nonumber
+    \end{align}
+\end{frame}
 
 \begin{frame}{Example}
 Consider the following problem
@@ -233,7 +262,7 @@ and
     \begin{align}
         \vec{x}^{(k+1)} = \vec{x}^{(k)} - \alpha_k\vec{g}^{(k)} + \beta\left(\vec{x}^{(k)}-\vec{x}^{(k-1)}\right)
     \end{align}
-    I've implemented momentum method \href{https://github.com/cmaspi/subgradient_method/blob/main/code/svm_numpy.py}{here}
+    I've implemented momentum method \href{https://github.com/cmaspi/subgradient_method/blob/main/code/svm_numpy.py}{here}. illustrations with different step rules can be found \href{https://github.com/cmaspi/subgradient_method/blob/main/code/step_with_momentum.ipynb}{here}
 \end{frame}
 
 {\small
