@@ -1,0 +1,21 @@
+\begin{thebibliography}{1}\itemsep=-1pt
+
+\bibitem{boyd2008stochastic}
+Stephen Boyd and Almir Mutapcic.
+\newblock Stochastic subgradient methods.
+\newblock {\em Lecture Notes for EE364b, Stanford University}, 2008.
+
+\bibitem{boyd2003subgradient}
+Stephen Boyd, Lin Xiao, and Almir Mutapcic.
+\newblock Subgradient methods.
+\newblock {\em lecture notes of EE392o, Stanford University, Autumn Quarter},
+  2004:2004--2005, 2003.
+
+\bibitem{scikit-learn}
+F. Pedregosa, G. Varoquaux, A. Gramfort, V. Michel, B. Thirion, O. Grisel, M.
+  Blondel, P. Prettenhofer, R. Weiss, V. Dubourg, J. Vanderplas, A. Passos, D.
+  Cournapeau, M. Brucher, M. Perrot, and E. Duchesnay.
+\newblock Scikit-learn: Machine learning in {P}ython.
+\newblock {\em Journal of Machine Learning Research}, 12:2825--2830, 2011.
+
+\end{thebibliography}

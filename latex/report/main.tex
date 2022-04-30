@@ -64,6 +64,7 @@
 \title{Subgradient Method} % Article title
 \author{%
 \normalsize Indian Institute of Technology, Hyderabad \\ % Your institution
+\normalsize Chirag Mehta \\ % Your institution
 \normalsize \href{mailto:ai20btech11006@iith.ac.in}{ai20btech11006@iith.ac.in} % Your email address
 %\and % Uncomment if 2 authors are required, duplicate these 4 lines if more
 %\textsc{Jane Smith}\thanks{Corresponding author} \\[1ex] % Second author's name
@@ -86,10 +87,10 @@ Non-differentiable functions are an important class of functions which often app
 \maketitle
 
 \section{Introduction}
-Subgradient method is a simple algorithm used to minimize non-differentiable convex functions. This method is similar to vanilla gradient method which is used to optimize differentiable functions. 
+Subgradient method is a simple algorithm used to minimize non-differentiable convex functions. This method is similar to vanilla gradient method which is used to optimize differentiable functions.~\cite{boyd2003subgradient}
 % can add few lines on comparison
 
-\subsection{Algorithm}
+\subsection{Algorithm}\label{sub:algorithm}
 Lets say we have a nondifferentiable function $f\, : \, \mathbb{R}^n\to \mathbb{R}$. The update rule of subgradient method says
 \begin{align}
     \vec{x}^{(k+1)} = \vec{x}^{(k)} - \alpha_k\vec{g}^{(k)} \label{eq:subgrad_iter}
@@ -98,7 +99,7 @@ where $\vec{x}^{(k)}$ is the $k^{th}$ iterate, $\alpha_k$ is the step step size 
 \begin{align}
     f(\vec{y}) \geq f(\vec{x}) + \vec{g}^T(\vec{y}-\vec{x})\label{eq:subgrad_condition}
 \end{align}
-At a given pozint there can be more than one subgradients, we call the set of subgradients as subdifferential.
+At a given pozint there can be more than one subgradients, we call the set of subgradients as subdifferential. This algorithm doesn't ensure that the loss always decreases, the loss can and often does increase, we store the best point encountered so far for that reason.
 \begin{theorem}
     If the function f is differentiable at $\vec{x}^{(k)}$ then $\vec{g}^{(k)}$ is equal to the gradient of f at $\vec{x}^{(k)}$
 \end{theorem}
@@ -119,31 +120,31 @@ At a given pozint there can be more than one subgradients, we call the set of su
 Consider the following problem
 
 \begin{align}
-    min\fourspace max\{f_1,f_2,\dots f_n\}
+    min\fourspace max\{f_1,f_2,\dots f_n\},\twospace f_i : \mathbb{R} \to \mathbb{R}
 \end{align}
-This problem is non differentiable but it can be solved using subgradient method. Lets consider a numerical example.
+This problem is non differentiable but it can be solved using subgradient method. The first step is to calculate the subgradients are all the points that occur in our iterative algorithm. To obtain the subgradients we can directly use the right hand derivative as the subgradients would lie in the interval of left hand gradient and right hand gradient. A numerical example is discussed in \eqref{sub:maxofconvex} 
 
-\section{Convergence proof}
-Lets assume $x^*$ is the minimizer of our objective function $f$. Assume that the norm of subgradients is bounded.
+% \section{Convergence proof}
+% Lets assume $x^*$ is the minimizer of our objective function $f$. Assume that the norm of subgradients is bounded.
 
-Using Lipschitz condition
-\begin{align}
-    \left| f(u)-f(v)\right| \leq G\norm{u-v}
-\end{align}
-for all $u,v$. Some versions of subgradient method work even when the gradient is not bounded. 
+% Using Lipschitz condition
+% \begin{align}
+%     \left| f(u)-f(v)\right| \leq G\norm{u-v}
+% \end{align}
+% for all $u,v$. Some versions of subgradient method work even when the gradient is not bounded. 
 
-\section{SVM using subgradient method}
+\section{SVM using subgradient method}\label{sec:svm}
 A support vector machine is used for two class classification. The objective is to maximize the slab thickness while still satisfying  few constraints. A hard-margin SVM can be formuated as
 \begin{align}
     \begin{split}
         \min_{\vec{w},b}\, &\twospace\vec{w}^T\vec{w}
     \end{split}\\ 
     \text{s.t:}
-    \twospace & y_i(\vec{w}^T\vec{x_i}+b)\geq 1\\
+    \twospace & y_i(\vec{w}^T\vec{x_i}+b)\geq 1
 \end{align}
 We can transform this problem into
 \begin{align}
-    \min_{\vec{w},b}\, &\twospace\vec{w}^T\vec{w} + \lambda \sum_i \max(0, 1-y_i\left(\vec{w}^T\vec{x}+b\right)
+    \min_{\vec{w},b}\, &\twospace\vec{w}^T\vec{w} + \lambda \sum_i \max\left(0, 1-y_i\left(\vec{w}^T\vec{x}+b\right)\right)
 \end{align}
 Where $\lambda$ is the trade off factor, the higher is the value of this parameter, the higher is the penalty of voilating the given constraints. This problem is essentially a soft-margin SVM. We can now solve this problem by subgradient method.
 
@@ -155,11 +156,23 @@ and
 \begin{align}
     g_{b} = \lambda\displaystyle\sum_i y_i \fourspace for\,  y_i\left(\vec{w}^T\vec{x}+b\right) < 1
 \end{align}
-In practice, we tend to use mini-batch subgradient method because of its several advantages such as computational efficiency, stable convergence and faster learning.
+\cite{boyd2008stochastic}In practice, we tend to use mini-batch subgradient method because of its several advantages such as computational efficiency, stable convergence and faster learning.
 
 \section{Results}
-\subsection{Maximum of convex functions}
-I considered a problem of the type maximum of linear functions and compared different step size rules. The results obtained are as follows
+\subsection{Maximum of convex functions}\label{sub:maxofconvex}
+Consider the following problem of the type maximum of linear functions
+\begin{align}
+    min\fourspace max\{f_1,f_2,\dots f_5\}
+\end{align}
+given
+\begin{align}
+    &f_1(x) = -5x-25\nonumber\\
+    &f_2(x) = -3x-10\nonumber\\
+    &f_3(x) = -x+1 \nonumber\\
+    &f_4(x) = 2x+4\nonumber\\
+    &f_5(x) = 5x+20 \nonumber
+\end{align}
+We will use the algorithm described in \eqref{sub:algorithm} to arrive at the optimal solution. There is still uncertainty as to how to choose the step size $\alpha_k$. There are a few different standard step size rules that we are comparing below.
 \begin{enumerate}
     \item Constant Step Size
     \begin{figure}[H]
@@ -195,52 +208,14 @@ We can see the difference in convergence across different step size rules.
 The link to original code can be found \href{https://github.com/cmaspi/subgradient_method/blob/main/code/step_illustration.ipynb}{here} and the mp4 animation files can be found \href{https://github.com/cmaspi/subgradient_method/tree/main/results}{here}.
 
 \subsection{SVM}
+\subsubsection{Hard-margin and soft margin SVM}
+As discussed in section \eqref{sec:svm}, a abnormally high tradeoff parameter would correspond to hard-margin SVM. A code demonstrating the same can be found \href{https://github.com/cmaspi/subgradient_method/blob/main/code/svm_graphics.ipynb}{here}
 \subsubsection{Spam Classification}
-Spam classification problem can be solved by soft margin SVM using linear kernel. The text in email can be tokenized and encoded in higher dimension. For our purposes, \emph{sklearn.feature\_extraction.text.CountVectorizer}~\cite{scikit-learn} can be used  
+Spam classification problem can be solved by soft margin SVM using linear kernel. The text in email can be tokenized and encoded in higher dimension. For our purposes, \emph{sklearn.feature\_extraction.text.CountVectorizer}~\cite{scikit-learn} can be used. The SVM written from scratch using numpy is able to attain an accuracy of $98.56\%$. The code can be found \href{https://github.com/cmaspi/subgradient\_method/blob/main/code/spam\_classification.ipynb}{here}
     
-
-    
-
-
-% expected structure
-%-----------
-
-% motivation for subgradient method
-% a simple example where gradient descent wouldn't work
-
-% correctness proof
-
-% comparison with newton's method and interior point method
-
-% A demonstration of sub gradient descent
-
-% Applying subgradient descent in SVM
-
-% Trying subgradient descent with other standard methods in gradient descent
-% such as momentum ( heavy ball method)
-
-
-
-%----------------------------------------------------------------------------------------
-%	ARTICLE CONTENTS
-%----------------------------------------------------------------------------------------
-%-----------------------------------------------------------------
-%	REFERENCE LIST
-%----------------------------------------------------------------------------------------
 {\small
 \bibliographystyle{ieee_fullname}
 \bibliography{egbib}
 }
-
-\section{References}
-\begin{enumerate}
-    \item Boyd, Stephen and Xiao, Lin and Mutapcic, Almir. Subgradient method \href{https://info.usherbrooke.ca/jpdussault/ROP771H17/subgrad_method_notes.pdf}{$^1$}
-    \item Boyd, Stephen and Mutapcic, Almir. stochastic Subgradient method \href{https://web.stanford.edu/class/ee364b/lectures/stoch_subgrad_notes.pdf}{$^2$}
-    \item edregosa, F. and Varoquaux, G. and Gramfort, A. and Michel, V.
-    and Thirion, B. and Grisel, O. and Blondel, M. and Prettenhofer, P.
-    and Weiss, R. and Dubourg, V. and Vanderplas, J. and Passos, A. and
-    Cournapeau, D. and Brucher, M. and Perrot, M. and Duchesnay, E. Scikit-learn: Machine Learning in \{P\}ython\} $^3$
-\end{enumerate}
-
 
 \end{document}
